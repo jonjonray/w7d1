@@ -3,16 +3,16 @@ import React from 'react';
 class TodoForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {title: "", body: "", done: false };
+    this.state = {id: "", title: "", body: "", done: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
   }
 
   handleSubmit(e) {
-    const key = Math.random(10000000);
     e.preventDefault();
-    this.props.receiveTodo({[key]: this.state});
-    this.setState({title: "", body: "", done: false });
+    this.setState({id: Math.random(10000000)});
+    this.props.receiveTodo({[this.state.id]: this.state});
+    this.setState({ id: "", title: "" });
   }
 
   updateTodo(e){
@@ -25,7 +25,7 @@ class TodoForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.updateTodo} />
+          <input type="text" onChange={this.updateTodo} value={this.state.title}/>
           <button> Add Todo! </button>
 
         </form>
